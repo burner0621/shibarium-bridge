@@ -1,0 +1,110 @@
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router";
+import Wallet from "../Wallet";
+import {
+  Wrapper,
+  Navigation,
+  Link,
+  LogoLink,
+  Logo,
+  MobileLogo,
+  MobileNavigation,
+  MobileList,
+  MobileItem,
+  BaseLink as MobileLink,
+  ExternalMobileLink,
+  List,
+  Item,
+  WalletWrapper,
+} from "./Header.styles";
+import MenuToggle from "./MenuToggle";
+import MobileMenu from "./MobileMenu";
+
+const LINKS = [
+  { href: "/", name: "Bridge" },
+  { href: "/pool", name: "Pool" },
+  { href: "/about", name: "About" },
+];
+const MOBILE_ONLY_LINKS = [
+  { href: "https://docs.across.to/bridge/", name: "Docs" },
+  { href: "https://discord.gg/across", name: "Support (Discord)" },
+  { href: "https://twitter.com/AcrossProtocol", name: "Twitter" },
+  { href: "https://github.com/across-protocol", name: "Github" },
+];
+const Header = () => {
+  const location = useLocation();
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const pathname = location.pathname;
+  // each time we click a link from the mobile menu, we want to close it
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  const toggleMenu = () => {
+    setMenuOpen((oldOpen) => !oldOpen);
+  };
+  return (
+    <Wrapper>
+      <LogoLink className="h-full" to="/">
+        <img src="/images/logo_web.png" className="h-[60px]"/>
+        <MobileLogo />
+      </LogoLink>
+      <div></div>
+      {/* <Navigation>
+        <List>
+          {LINKS.map(({ href, name }) => (
+            <Item key={href} aria-selected={location.pathname === href}>
+              <Link
+                to={{
+                  pathname: href,
+                  search: location.search,
+                }}
+              >
+                {name}
+              </Link>
+            </Item>
+          ))}
+        </List>
+      </Navigation> */}
+      <WalletWrapper>
+        <Wallet />
+      </WalletWrapper>
+      <MobileNavigation animate={isMenuOpen ? "open" : "closed"}>
+        <MenuToggle toggle={toggleMenu} />
+        <MobileMenu isOpen={isMenuOpen}>
+          {isMenuOpen && (
+            <MobileList>
+              {LINKS.map(({ href, name }) => (
+                <MobileItem
+                  key={href}
+                  aria-selected={location.pathname === href}
+                >
+                  <MobileLink
+                    to={{
+                      pathname: href,
+                      search: location.search,
+                    }}
+                  >
+                    {name}
+                  </MobileLink>
+                </MobileItem>
+              ))}
+              {MOBILE_ONLY_LINKS.map(({ href, name }) => (
+                <MobileItem key={href}>
+                  <ExternalMobileLink
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {name}
+                  </ExternalMobileLink>
+                </MobileItem>
+              ))}
+            </MobileList>
+          )}
+        </MobileMenu>
+      </MobileNavigation>
+    </Wrapper>
+  );
+};
+export default Header;

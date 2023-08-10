@@ -1,0 +1,138 @@
+import styled from "@emotion/styled";
+import { SecondaryButtonWithoutShadow } from "../Buttons";
+import { ChevronDown } from "react-feather";
+import { motion } from "framer-motion";
+import { COLORS, QUERIES } from "utils";
+import { RoundBox as UnstyledBox, ErrorBox as UnstyledErrorBox } from "../Box";
+
+export const Wrapper = styled.div`
+  --radius: 30px;
+  display: flex;
+  flex-direction: column;
+`;
+// User agents wars, so have to check for chrome too
+const isSafari =
+  navigator.userAgent.search("Safari") >= 0 &&
+  navigator.userAgent.search("Chrome") < 0;
+export const RoundBox = styled(UnstyledBox)`
+  --color: var(--color-white);
+  background-color: var(--color);
+  font-size: ${16 / 16}rem;
+  padding: 10px 15px;
+  display: flex;
+  &:not(:first-of-type):focus-within {
+    outline: ${isSafari ? "none" : "var(--outline-color) solid 1px"};
+  }
+`;
+
+export const InputGroup = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ToggleButton = styled.button`
+  --radius: 30px;
+  width: fit-content;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  color: var(--color-gray);
+  background-color: inherit;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const Logo = styled.img`
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin-right: 10px;
+`;
+
+export const Menu = styled.ul`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: 10px;
+  transform: translateY(50%);
+  box-shadow: ${({ isOpen }) =>
+    isOpen ? `0px 160px 8px 8px hsla(${COLORS.gray[500]} / 0.2)` : "none"};
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  outline: none;
+  pointer-events: ${({ isOpen }) => (isOpen ? "auto" : "none")};
+  @media ${QUERIES.tabletAndUp} {
+    transform: translateY(100%);
+  }
+`;
+
+export const Item = motion(styled.li`
+  padding: 15px 10px 10px;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  background-color: var(--color-white);
+  color: var(--color-gray);
+  transition: background-color 100ms linear;
+  &:first-of-type {
+    border-radius: calc(var(--radius) / 4) calc(var(--radius) / 4) 0 0;
+  }
+
+  &:last-of-type {
+    border-radius: 0 0 calc(var(--radius) / 4) calc(var(--radius) / 4);
+  }
+
+  &:hover {
+    background-color: var(--color-gray-100);
+  }
+
+  & > div:last-of-type {
+    margin-left: auto;
+    color: hsla(${COLORS.gray[500]} / 0.5);
+  }
+`);
+
+export const ToggleIcon = styled(ChevronDown)`
+`;
+
+export const MaxButton = styled(SecondaryButtonWithoutShadow)`
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: ${14 / 16}rem;
+  transition: background-color 100ms linear;
+  &::after {
+    box-shadow: none;
+  }
+  &:hover {
+    background-color: var(--color-gray-300);
+  }
+`;
+
+export const Input = styled.input`
+  border: none;
+  font-size: inherit;
+  background-color: inherit;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: right;
+  outline: none;
+  color: black;
+
+  &::placeholder {
+    color: var(--color-gray-300);
+  }
+`;
+
+export const ErrorBox = styled(UnstyledErrorBox)`
+  margin-top: 10px;
+`;

@@ -7,6 +7,7 @@
     "compile": "truffle compile --all",
     "deploy": "truffle deploy --reset --compile-all",
     "deploy:network": "npm run deploy -- --network ",
+    "deploy-goerli": "truffle deploy --network goerli",
     "test": "truffle test",
     "mocha": "npm run compile && mocha --exit --recursive",
     "coverage": "truffle run coverage --solcoverjs ./.solcover.js",

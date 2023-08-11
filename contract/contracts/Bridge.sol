@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.7.0;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 import "./BridgeAdmin.sol";
 import "./BridgeLogic.sol";
 
@@ -46,8 +46,8 @@ contract Bridge is BridgeAdmin, Pausable {
     event MinFeeChanged(uint previousMinFee, uint newMinFee);
     event MaxFeeChanged(uint previousMaxFee, uint newMaxFee);
     event SwapFeeChanged(string chain, uint256 indexed previousSwapFee, uint256 indexed newSwapFee);
-    event DepositNative(address indexed from, uint256 value, string targetAddress, string chain, uint256 feeValue);
-    event DepositToken(address indexed from, uint256 value, address indexed token, string targetAddress, string chain, uint256 feeValue);
+    event DepositNative(address indexed from, uint256 value, address targetAddress, uint sChain, uint dChain, uint256 feeValue);
+    event DepositToken(address indexed from, uint256 value, address indexed token, address targetAddress, uint sChain, uint dChain, uint256 feeValue);
     event WithdrawingNative(address indexed to, uint256 value, string proof);
     event WithdrawingToken(address indexed to, address indexed token, uint256 value, string proof);
     event WithdrawDoneNative(address indexed to, uint256 value, string proof);
@@ -80,7 +80,7 @@ contract Bridge is BridgeAdmin, Pausable {
     /**
         Deposit native currency
     */
-    function depositNative(string memory chain) public payable {
+    function depositNative(uint _dChainId) public payable {
         tokenInfo memory ti = feeToken[0x0000000000000000000000000000000000000000];
 
         /** Check if _amount is greater than minDepositAmount */
@@ -98,10 +98,10 @@ contract Bridge is BridgeAdmin, Pausable {
 
         payable(feeTo).transfer(feeAmount);
         payable(assetWallet).transfer(msg.value - feeAmount);
-        emit DepositNative(msg.sender, msg.value - feeAmount, assetWallet, chainId, chain, feeAmount);
+        emit DepositNative(msg.sender, msg.value - feeAmount, assetWallet, chainId, _dChainId, feeAmount);
     }
 
-    function depositToken(address _token, uint value, string memory chain) public payable returns (bool) {
+    function depositToken(address _token, uint value, uint _dChainId) public payable returns (bool) {
         tokenInfo memory ti = feeToken[_token];
         
         /** Check if _amount is greater than minDepositAmount */
@@ -118,7 +118,7 @@ contract Bridge is BridgeAdmin, Pausable {
         }
         
         bool res = depositTokenLogic(_token, msg.sender, value - feeAmount);
-        emit DepositToken(msg.sender, value - feeAmount, _token, assetWallet, chain, feeAmount);
+        emit DepositToken(msg.sender, value - feeAmount, _token, assetWallet, chainId, _dChainId, feeAmount);
         return res;
     }
 
@@ -156,7 +156,7 @@ contract Bridge is BridgeAdmin, Pausable {
         uint256 status = logic.supportTask(logic.WITHDRAWTASK(), taskHash, msg.sender, operatorRequireNum);
 
         if (status == logic.TASKPROCESSING()) {
-            emit WithdrawingToken(assetWtoallet, _token, value, proof);
+            emit WithdrawingToken(assetWallet, _token, value, proof);
         } else if (status == logic.TASKDONE()) {
             bool res = withdrawTokenLogic(_token, to, value);
 
@@ -227,7 +227,7 @@ contract Bridge is BridgeAdmin, Pausable {
         _decimal: decimal of token - ex. 8
         _expectedPrice: expected price of token (8 decimal) - ex. 185000000000 (eth price)
     */
-    function addToken(address _token, uint _decimal, uint256 _expectedPrice){
+    function addToken(address _token, uint _decimal, uint256 _expectedPrice) external {
         uint256 _minFee = (minFee * (10 ** _decimal) / _expectedPrice) * 100000000;
         uint256 _maxFee = (maxFee * (10 ** _decimal) / _expectedPrice) * 100000000;
         uint256 _minDepositAmount = (minDepositAmount * (10 ** _decimal) / _expectedPrice) * 100000000;
@@ -252,26 +252,26 @@ contract Bridge is BridgeAdmin, Pausable {
         feePercent = _feePercent;
     }
 
-    function getFeeMin() public view returns (uint) {
-        return feeMin;
+    function getMinFee() public view returns (uint) {
+        return minFee;
     }
 
-    function setFeeMin(uint _feeMin) onlyOwner external {
-        emit FeeMinChanged(feeMin, _feeMin);
-        feeMin = _feeMin;
+    function setMinFee(uint _minFee) onlyOwner external {
+        emit MinFeeChanged(minFee, _minFee);
+        minFee = _minFee;
     }
 
-    function getFeeMax() public view returns (uint) {
-        return feeMax;
+    function getMaxFee() public view returns (uint) {
+        return maxFee;
     }
 
-    function setFeeMax(uint _feeMax) onlyOwner external {
-        emit FeeMaxChanged(feeMax, _feeMax);
-        feeMax = _feeMax;
+    function setMaxFee(uint _maxFee) onlyOwner external {
+        emit MaxFeeChanged(maxFee, _maxFee);
+        maxFee = _maxFee;
     }
 
     function getMinDepositAmount() public view returns (uint) {
-        return feeMin;
+        return minDepositAmount;
     }
 
     function setMinDepositAmount(uint _minDepositAmount) onlyOwner external {

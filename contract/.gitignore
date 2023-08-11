@@ -5,6 +5,9 @@ logs/*.log
 __pycache__/
 config_live.py
 
+.env
+env.js
+
 .DS_Store*
 ehthumbs.db
 Icon?

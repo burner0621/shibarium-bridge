@@ -1,0 +1,35 @@
+{
+  "name": "bridge-contract",
+  "version": "1.0.0",
+  "description": "kcc bridge contract",
+  "main": "README.md",
+  "scripts": {
+    "compile": "truffle compile --all",
+    "deploy": "truffle deploy --reset --compile-all",
+    "deploy:network": "npm run deploy -- --network ",
+    "test": "truffle test",
+    "mocha": "npm run compile && mocha --exit --recursive",
+    "coverage": "truffle run coverage --solcoverjs ./.solcover.js",
+    "lint": "solhint contracts/**/*.sol"
+  },
+  "author": "*",
+  "license": "ISC",
+  "dependencies": {
+    "@chainlink/contracts": "0.1.7",
+    "@openzeppelin/contracts": "4.7.3",
+    "@truffle/hdwallet-provider": "1.4.0"
+  },
+  "devDependencies": {
+    "@openzeppelin/test-environment": "0.1.9",
+    "@openzeppelin/test-helpers": "0.5.11",
+    "chai": "4.3.4",
+    "mocha": "10.2.0",
+    "mochawesome": "4.1.0",
+    "prettier": "1.19.1",
+    "prettier-plugin-solidity": "1.0.0-alpha.45",
+    "solhint": "2.3.1",
+    "solhint-plugin-prettier": "0.0.4",
+    "solidity-coverage": "0.7.16",
+    "table": "6.7.1"
+  }
+}

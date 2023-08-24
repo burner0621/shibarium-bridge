@@ -4,6 +4,8 @@ import usdcLogo from "assets/usdc-logo.png";
 import optimismLogo from "assets/optimism-alt-logo.svg";
 import wethLogo from "assets/weth-logo.svg";
 import arbitrumLogo from "assets/arbitrum-logo.svg";
+import shibariumLogo from "assets/logo_web.png";
+import boneLogo from "assets/bone.png";
 import memoize from "lodash-es/memoize";
 import umaLogo from "assets/UMA-round.svg";
 import bobaLogo from "assets/Across-Boba-Color30x30.svg";
@@ -29,13 +31,7 @@ export const QUERIES = {
 
 export const ChainId =  {
   MAINNET: 1,
-  RINKEBY: 4,
-  KOVAN : 42,
-  OPTIMISM: 10,
-  KOVAN_OPTIMISM: 69,
-  ARBITRUM: 42161,
-  ARBITRUM_RINKEBY: 421611,
-  BOBA: 288,
+  SHIBARIUM: 109,
 }
 
 export const MAX_RELAY_FEE_PERCENT = 25;
@@ -71,306 +67,22 @@ export const COLORS = {
 export const TOKENS_LIST = {
   [ChainId.MAINNET]: [
     {
-      address: getAddress("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
+      address: getAddress("0x9813037ee2218799597d83d4a5b6f3b6778218d9"),
+      name: "BONE",
+      symbol: "BONE",
       decimals: 18,
       logoURI: wethLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-    {
-      address: getAddress("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"),
-      name: "USD Coin",
-      symbol: "USDC",
-      decimals: 6,
-      logoURI: usdcLogo,
-      bridgePool: getAddress("0x256C8919CE1AB0e33974CF6AA9c71561Ef3017b6"),
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-    {
-      address: getAddress("0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"),
-      name: "Wrapped Bitcoin",
-      symbol: "WBTC",
-      decimals: 8,
-      logoURI: wbtcLogo,
-      bridgePool: getAddress("0x02fbb64517e1c6ed69a6faa3abf37db0482f1152"),
-    },
-    {
-      address: getAddress("0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828"),
-      name: "UMA Token",
-      symbol: "UMA",
-      decimals: 18,
-      logoURI: umaLogo,
-      bridgePool: "0xdfe0ec39291e3b60ACa122908f86809c9eE64E90",
-    },
-    {
-      address: getAddress("0x3472A5A71965499acd81997a54BBA8D852C6E53d"),
-      name: "Badger",
-      symbol: "BADGER",
-      decimals: 18,
-      logoURI: badgerLogo,
-      bridgePool: getAddress("0x43298F9f91a4545dF64748e78a2c777c580573d6"),
-    },
-    {
-      address: getAddress("0x42bbfa2e77757c645eeaad1655e0911a7553efbc"),
-      name: "Boba",
-      symbol: "BOBA",
-      decimals: 18,
-      logoURI: bobaLogo,
-      bridgePool: getAddress("0x4841572daA1f8E4Ce0f62570877c2D0CC18C9535"),
-    },
-    {
-      address: getAddress("0x6B175474E89094C44Da98b954EedeAC495271d0F"),
-      name: "Dai Stablecoin",
-      symbol: "DAI",
-      decimals: 18,
-      logoURI: daiLogo,
-      bridgePool: getAddress("0x43f133FE6fDFA17c417695c476447dc2a449Ba5B"),
+      bridgePool: getAddress("0x885fce983b6a01633f764325b8c3c5d31032c995"),
     },
   ],
-  [ChainId.RINKEBY]: [
-    {
-      address: getAddress("0xc778417E063141139Fce010982780140Aa0cD5Ab"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: getAddress("0xf42bB7EC88d065dF48D60cb672B88F8330f9f764"),
-    },
+  [ChainId.SHIBARIUM]: [
     {
       address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
+      name: "BONE",
+      symbol: "BONE",
       decimals: 18,
       logoURI: ethereumLogo,
       bridgePool: "",
-    },
-  ],
-  [ChainId.KOVAN]: [
-    {
-      address: getAddress("0xd0a1e359811322d97991e03f863a0c30c2cf029c"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: "i",
-    },
-    {
-      address: getAddress("0x08ae34860fbfe73e223596e65663683973c72dd3"),
-      name: "DAI Stablecoin",
-      symbol: "DAI",
-      decimals: 18,
-      logoURI: daiLogo,
-      bridgePool: "f",
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: "d",
-    },
-  ],
-  [ChainId.OPTIMISM]: [
-    {
-      address: getAddress("0x4200000000000000000000000000000000000006"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-    {
-      address: getAddress("0x7f5c764cbc14f9669b88837ca1490cca17c31607"),
-      name: "USD Coin",
-      symbol: "USDC",
-      decimals: 6,
-      logoURI: usdcLogo,
-      bridgePool: getAddress("0x190978cC580f5A48D55A4A20D0A952FA1dA3C057"),
-    },
-    {
-      address: getAddress("0x68f180fcCe6836688e9084f035309E29Bf0A2095"),
-      name: "Wrapped Bitcoin",
-      symbol: "WBTC",
-      decimals: 8,
-      logoURI: wbtcLogo,
-      bridgePool: getAddress("0x02fbb64517e1c6ed69a6faa3abf37db0482f1152"),
-    },
-    {
-      address: getAddress("0xE7798f023fC62146e8Aa1b36Da45fb70855a77Ea"),
-      name: "UMA Token",
-      symbol: "UMA",
-      decimals: 18,
-      logoURI: umaLogo,
-      bridgePool: getAddress("0xdfe0ec39291e3b60ACa122908f86809c9eE64E90"),
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-  ],
-  [ChainId.KOVAN_OPTIMISM]: [
-    {
-      address: getAddress("0x4200000000000000000000000000000000000006"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: "m",
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: "",
-    },
-  ],
-  [ChainId.ARBITRUM]: [
-    {
-      address: getAddress("0x82af49447d8a07e3bd95bd0d56f35241523fbab1"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-    {
-      address: getAddress("0xff970a61a04b1ca14834a43f5de4533ebddb5cc8"),
-      name: "USD Coin",
-      symbol: "USDC",
-      decimals: 6,
-      logoURI: usdcLogo,
-      bridgePool: getAddress("0x256C8919CE1AB0e33974CF6AA9c71561Ef3017b6"),
-    },
-    {
-      address: getAddress("0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f"),
-      name: "Wrapped Bitcoin",
-      symbol: "WBTC",
-      decimals: 8,
-      logoURI: wbtcLogo,
-      bridgePool: getAddress("0x02fbb64517e1c6ed69a6faa3abf37db0482f1152"),
-    },
-    {
-      address: getAddress("0xd693ec944a85eeca4247ec1c3b130dca9b0c3b22"),
-      name: "UMA Token",
-      symbol: "UMA",
-      decimals: 18,
-      logoURI: umaLogo,
-      bridgePool: getAddress("0xdfe0ec39291e3b60ACa122908f86809c9eE64E90"),
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-    {
-      address: getAddress("0xbfa641051ba0a0ad1b0acf549a89536a0d76472e"),
-      name: "Badger",
-      symbol: "BADGER",
-      decimals: 18,
-      logoURI: badgerLogo,
-      bridgePool: getAddress("0x43298F9f91a4545dF64748e78a2c777c580573d6"),
-    },
-    {
-      address: getAddress("0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"),
-      name: "Dai Stablecoin",
-      symbol: "DAI",
-      decimals: 18,
-      logoURI: daiLogo,
-      bridgePool: getAddress("0x43f133FE6fDFA17c417695c476447dc2a449Ba5B"),
-    },
-  ],
-  [ChainId.ARBITRUM_RINKEBY]: [
-    {
-      address: getAddress("0xB47e6A5f8b33b3F17603C83a0535A9dcD7E32681"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: "",
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: "",
-    },
-  ],
-  [ChainId.BOBA]: [
-    {
-      address: getAddress("0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000"),
-      name: "Wrapped Ether",
-      symbol: "WETH",
-      decimals: 18,
-      logoURI: wethLogo,
-      bridgePool: getAddress("0x7355Efc63Ae731f584380a9838292c7046c1e433"),
-    },
-    {
-      address: getAddress("0x66a2A913e447d6b4BF33EFbec43aAeF87890FBbc"),
-      name: "USD Coin",
-      symbol: "USDC",
-      decimals: 6,
-      logoURI: usdcLogo,
-      bridgePool: getAddress("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"),
-    },
-    {
-      address: getAddress("0xdc0486f8bf31DF57a952bcd3c1d3e166e3d9eC8b"),
-      name: "Wrapped Bitcoin",
-      symbol: "WBTC",
-      decimals: 8,
-      logoURI: wbtcLogo,
-      bridgePool: getAddress("0x02fbb64517e1c6ed69a6faa3abf37db0482f1152"),
-    },
-    {
-      address: getAddress("0x780f33Ad21314d9A1Ffb6867Fe53d48a76Ec0D16"),
-      name: "UMA Token",
-      symbol: "UMA",
-      decimals: 18,
-      logoURI: umaLogo,
-      bridgePool: getAddress("0xdfe0ec39291e3b60ACa122908f86809c9eE64E90"),
-    },
-    {
-      address: getAddress("0xa18bF3994C0Cc6E3b63ac420308E5383f53120D7"),
-      name: "Boba",
-      symbol: "BOBA",
-      decimals: 18,
-      logoURI: bobaLogo,
-      bridgePool: getAddress("0x4841572daA1f8E4Ce0f62570877c2D0CC18C9535"),
-    },
-    {
-      address: ethers.constants.AddressZero,
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-      logoURI: ethereumLogo,
-      bridgePool: "",
-    },
-    {
-      address: getAddress("0xf74195Bb8a5cf652411867c5C2C5b8C2a402be35"),
-      name: "Dai Stablecoin",
-      symbol: "DAI",
-      decimals: 18,
-      logoURI: daiLogo,
-      bridgePool: getAddress("0x43f133FE6fDFA17c417695c476447dc2a449Ba5B"),
     },
   ],
 };
@@ -391,101 +103,17 @@ export const CHAINS = {
       decimals: 18,
     },
   },
-  [ChainId.RINKEBY]: {
-    name: "Rinkeby Testnet",
-    chainId: ChainId.RINKEBY,
-    logoURI: ethereumLogo,
-    explorerUrl: "https://rinkeby.etherscan.io",
+  [ChainId.SHIBARIUM]: {
+    name: "Shibarium Mainnet",
+    chainId: ChainId.SHIBARIUM,
+    logoURI: shibariumLogo,
+    explorerUrl: "https://shibariumscan.io/",
     constructExplorerLink: defaultConstructExplorerLink(
-      "https://rinkeby.etherscan.io"
+      "https://shibariumscan.io/"
     ),
     nativeCurrency: {
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-    },
-  },
-  [ChainId.KOVAN]: {
-    name: "Ethereum Testnet Kovan",
-    chainId: ChainId.KOVAN,
-    logoURI: ethereumLogo,
-    explorerUrl: "https://kovan.etherscan.io",
-    constructExplorerLink: defaultConstructExplorerLink(
-      "https://kovan.etherscan.io"
-    ),
-    nativeCurrency: {
-      name: "Kovan Ethereum",
-      symbol: "KOV",
-      decimals: 18,
-    },
-  },
-  [ChainId.OPTIMISM]: {
-    name: "Optimism",
-    chainId: ChainId.OPTIMISM,
-    logoURI: optimismLogo,
-    rpcUrl: "https://mainnet.optimism.io",
-    explorerUrl: "https://optimistic.etherscan.io",
-    constructExplorerLink: (txHash) =>
-      `https://optimistic.etherscan.io/tx/${txHash}`,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "OETH",
-      decimals: 18,
-    },
-  },
-  [ChainId.KOVAN_OPTIMISM]: {
-    name: "Optimism Testnet Kovan",
-    chainId: ChainId.KOVAN_OPTIMISM,
-    logoURI: optimismLogo,
-    rpcUrl: "https://kovan.optimism.io",
-    explorerUrl: "https://kovan-optimistic.etherscan.io",
-    constructExplorerLink: (txHash) =>
-      `https://kovan-optimistic.etherscan.io/tx/${txHash}`,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "KOR",
-      decimals: 18,
-    },
-  },
-  [ChainId.ARBITRUM]: {
-    name: "Arbitrum One",
-    chainId: ChainId.ARBITRUM,
-    logoURI: arbitrumLogo,
-    rpcUrl: "https://arb1.arbitrum.io/rpc",
-    explorerUrl: "https://arbiscan.io",
-    constructExplorerLink: (txHash) =>
-      `https://arbiscan.io/tx/${txHash}`,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "AETH",
-      decimals: 18,
-    },
-  },
-  [ChainId.ARBITRUM_RINKEBY]: {
-    name: "Arbitrum Testnet Rinkeby",
-    chainId: ChainId.ARBITRUM_RINKEBY,
-    logoURI: arbitrumLogo,
-    explorerUrl: "https://rinkeby-explorer.arbitrum.io",
-    constructExplorerLink: (txHash) =>
-      `https://rinkeby-explorer.arbitrum.io/tx/${txHash}`,
-    rpcUrl: "https://rinkeby.arbitrum.io/rpc",
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "ARETH",
-      decimals: 18,
-    },
-  },
-  [ChainId.BOBA]: {
-    name: "Boba",
-    chainId: ChainId.BOBA,
-    logoURI: bobaLogo,
-    rpcUrl: "https://mainnet.boba.network",
-    explorerUrl: "https://blockexplorer.boba.network",
-    constructExplorerLink: (txHash) =>
-      `https://blockexplorer.boba.network/tx/${txHash}`,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "ETH",
+      name: "BONE",
+      symbol: "BONE",
       decimals: 18,
     },
   },
@@ -494,24 +122,10 @@ export const CHAINS = {
 export const ADDRESSES = {
   [ChainId.MAINNET]: {
     // Stubbed value.
-    BRIDGE: "0xB524735356985D2f267FA010D681f061DfF03715",
+    BRIDGE: "0x885fce983b6a01633f764325b8c3c5d31032c995",
   },
-  [ChainId.RINKEBY]: {},
-  [ChainId.KOVAN]: {},
-  [ChainId.OPTIMISM]: {
+  [ChainId.SHIBARIUM]: {
     BRIDGE: "0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96",
-  },
-  [ChainId.BOBA]: {
-    BRIDGE: "0xCD43CEa89DF8fE39031C03c24BC24480e942470B",
-  },
-  [ChainId.KOVAN_OPTIMISM]: {
-    BRIDGE: "0x2271a5E74eA8A29764ab10523575b41AA52455f0",
-  },
-  [ChainId.ARBITRUM]: {
-    BRIDGE: "0xD8c6dD978a3768F7DDfE3A9aAD2c3Fd75Fa9B6Fd",
-  },
-  [ChainId.ARBITRUM_RINKEBY]: {
-    BRIDGE: "0x6999526e507Cc3b03b180BbE05E1Ff938259A874",
   },
 };
 
@@ -522,46 +136,11 @@ export const PROVIDERS = {
         `https://mainnet.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
       )
   ),
-  [ChainId.RINKEBY]: memoize(
+  [ChainId.SHIBARIUM]: memoize(
     () =>
       new ethers.providers.StaticJsonRpcProvider(
-        `https://rinkeby.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
+        `https://www.shibrpc.com`
       )
-  ),
-  [ChainId.KOVAN]: memoize(
-    () =>
-      new ethers.providers.StaticJsonRpcProvider(
-        `https://kovan.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
-      )
-  ),
-  [ChainId.OPTIMISM]: memoize(
-    () =>
-      new ethers.providers.StaticJsonRpcProvider(
-        `https://optimism-mainnet.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
-      )
-  ),
-  [ChainId.KOVAN_OPTIMISM]: memoize(
-    () =>
-      new ethers.providers.StaticJsonRpcProvider(
-        `https://optimism-kovan.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
-      )
-  ),
-  [ChainId.ARBITRUM]: memoize(
-    () =>
-      new ethers.providers.StaticJsonRpcProvider(
-        `https://arbitrum-mainnet.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
-      )
-  ),
-  [ChainId.ARBITRUM_RINKEBY]: memoize(
-    () =>
-      new ethers.providers.StaticJsonRpcProvider(
-        `https://arbitrum-rinkeby.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`
-      )
-  ),
-  // Doesn't have an rpc on infura.
-  [ChainId.BOBA]: memoize(
-    () =>
-      new ethers.providers.StaticJsonRpcProvider(`https://mainnet.boba.network`)
   ),
 };
 
@@ -569,24 +148,14 @@ export function getChainName(chainId) {
   switch (chainId) {
     case ChainId.MAINNET:
       return CHAINS[ChainId.MAINNET].name;
-    case ChainId.RINKEBY:
-      return CHAINS[ChainId.RINKEBY].name;
-    case ChainId.KOVAN:
-      return CHAINS[ChainId.KOVAN].name;
-    case ChainId.OPTIMISM:
-      return CHAINS[ChainId.OPTIMISM].name;
-    case ChainId.KOVAN_OPTIMISM:
-      return CHAINS[ChainId.KOVAN_OPTIMISM].name;
-    case ChainId.ARBITRUM:
-      return CHAINS[ChainId.ARBITRUM].name;
-    case ChainId.ARBITRUM_RINKEBY:
-      return CHAINS[ChainId.ARBITRUM_RINKEBY].name;
+    case ChainId.SHIBARIUM:
+      return CHAINS[ChainId.SHIBARIUM].name;
     default:
       return "unkwown";
   }
 }
 
-export const DEFAULT_FROM_CHAIN_ID = ChainId.ARBITRUM;
+export const DEFAULT_FROM_CHAIN_ID = ChainId.SHIBARIUM;
 export const DEFAULT_TO_CHAIN_ID = ChainId.MAINNET;
 
 /* Onboard config */
@@ -605,9 +174,7 @@ export function onboardBaseConfig() {
           walletName: "walletConnect",
           rpc: {
             1: `https://mainnet.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`,
-            10: `https://optimism-mainnet.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`,
-            288: `https://mainnet.boba.network/`,
-            42161: `https://arbitrum-mainnet.infura.io/v3/${process.env.REACT_APP_PUBLIC_INFURA_ID}`,
+            109: `https://www.shibrpc.com/`,
           },
           preferred: true,
         },
@@ -626,49 +193,6 @@ export const multicallTwoAddress = "0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696";
 
 export const CHAINS_SELECTION = [
   {
-    name: "Optimism",
-    chainId: ChainId.OPTIMISM,
-    logoURI: optimismLogo,
-    rpcUrl: "https://mainnet.optimism.io",
-    explorerUrl: "https://optimistic.etherscan.io",
-    constructExplorerLink: defaultConstructExplorerLink(
-      "https://optimistic.etherscan.io"
-    ),
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "OETH",
-      decimals: 18,
-    },
-  },
-  {
-    name: "Arbitrum",
-    chainId: ChainId.ARBITRUM,
-    logoURI: arbitrumLogo,
-    rpcUrl: "https://arb1.arbitrum.io/rpc",
-    explorerUrl: "https://arbiscan.io",
-    constructExplorerLink: (txHash) =>
-      `https://arbiscan.io/tx/${txHash}`,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "AETH",
-      decimals: 18,
-    },
-  },
-  {
-    name: "Boba",
-    chainId: ChainId.BOBA,
-    logoURI: bobaLogo,
-    rpcUrl: "https://mainnet.boba.network",
-    explorerUrl: "https://blockexplorer.boba.network",
-    constructExplorerLink: (txHash) =>
-      `https://blockexplorer.boba.network/tx/${txHash}`,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-    },
-  },
-  {
     name: "Ethereum",
     chainId: ChainId.MAINNET,
     logoURI: ethereumLogo,
@@ -680,6 +204,20 @@ export const CHAINS_SELECTION = [
     nativeCurrency: {
       name: "Ether",
       symbol: "ETH",
+      decimals: 18,
+    },
+  },
+  {
+    name: "Shibarium",
+    chainId: ChainId.SHIBARIUM,
+    logoURI: shibariumLogo,
+    rpcUrl: "https://www.shibrpc.com/",
+    explorerUrl: "https://shibariumscan.io/",
+    constructExplorerLink: (txHash) =>
+      `https://shibariumscan.io//tx/${txHash}`,
+    nativeCurrency: {
+      name: "BONE",
+      symbol: "BONE",
       decimals: 18,
     },
   },

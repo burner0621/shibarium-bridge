@@ -36,65 +36,15 @@ const Routes = () => {
       chainId !== DEFAULT_TO_CHAIN_ID);
   return (
     <div className="bg-[url('/images/background.png')] bg-cover h-full">
-      {showMigrationBanner && (
-        <Banner>
-          <div>
-            Across v2 is here!{" "}
-            <a
-              href="https://medium.com/across-protocol/lps-migrate-liquidity-from-v1-to-v2-screenshots-and-faqs-8616150b3396"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read here
-            </a>{" "}
-            to learn how to migrate your pool liquidity from Across v1.
-          </div>
-        </Banner>
-      )}
-      {globalError && (
-        <SuperHeader>
-          <div>{globalError}</div>
-          <RemoveErrorSpan onClick={() => removeError()}>X</RemoveErrorSpan>
-        </SuperHeader>
-      )}
-      {wrongNetworkSend && location.pathname === "/" && (
-        <SuperHeader>
-          <div>
-            You are on an incorrect network. Please{" "}
-            <button
-              onClick={() =>
-                switchChain(
-                  provider,
-                  sendState.currentlySelectedFromChain.chainId
-                )
-              }
-            >
-              switch to{" "}
-              {CHAINS[sendState.currentlySelectedFromChain.chainId].name}
-            </button>
-          </div>
-        </SuperHeader>
-      )}
-
-      {wrongNetworkPool && location.pathname === "/pool" && (
-        <SuperHeader>
-          <div>
-            You are on an incorrect network. Please{" "}
-            <button onClick={() => switchChain(provider, DEFAULT_TO_CHAIN_ID)}>
-              switch to {CHAINS[DEFAULT_TO_CHAIN_ID].name}
-            </button>
-          </div>
-        </SuperHeader>
-      )}
       <Header />
-      <Switch>
+      {/* <Switch>
         <Route exact path="/about" component={About} />
         <Route
           exact
           path="/"
-          component={showConfirmationScreen ? Confirmation : Send}
+          component={Send}
         />
-      </Switch>
+      </Switch> */}
     </div>
   );
 };

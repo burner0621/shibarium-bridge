@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { QUERIES } from "utils";
+import { QUERIES } from "../../utils";
 import { RoundBox } from "../Box";
 import { ConnectButtonStyle } from "../Buttons";
 
@@ -15,8 +15,12 @@ export const Wrapper = styled(RoundBox)`
 `;
 
 export const ConnectButton = styled(ConnectButtonStyle)`
-  padding: 12px 16px;
+  padding: 6px 16px 12px;
   border: 1px solid transparent;
+  @media (max-width: 500px) {
+    font-size: 12px;
+    padding: 3px 12px 6px;
+  }
 `;
 
 export const Account = styled.div`

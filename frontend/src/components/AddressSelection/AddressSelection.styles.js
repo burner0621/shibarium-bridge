@@ -1,17 +1,16 @@
 import styled from "@emotion/styled";
-import { PrimaryButton } from "../Buttons";
-import { RoundBox as UnstyledBox } from "../Box";
-import { QUERIES, COLORS } from "../../utils";
+import { Section } from "../Section";
+import { PrimaryButton, BaseButton } from "../Buttons";
 import { ChevronDown } from "react-feather";
 import { motion } from "framer-motion";
+import { RoundBox as UnstyledBox } from "../Box";
 
+export const LastSection = styled(Section)`
+  border-bottom: none;
+`;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 15px;
-  @media ${QUERIES.tabletAndUp} {
-    padding-top: 20px;
-  }
 `;
 
 export const RoundBox = styled(UnstyledBox)`
@@ -27,13 +26,80 @@ export const RoundBox = styled(UnstyledBox)`
   }
 `;
 
-export const ConnectButton = styled(PrimaryButton)`
-  margin-top: 16px;
-`;
-
 export const Logo = styled.img`
   object-fit: cover;
   margin-right: 5px;
+`;
+
+export const Info = styled.div`
+  & > div {
+    line-height: 1;
+  }
+`;
+export const Address = styled.div`
+  font-size: ${14 / 16}rem;
+  text-align: left;
+`;
+
+export const ChangeWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 8px;
+`;
+
+export const ChangeButton = styled.div`
+  color: #6cf9d8;
+  font-size: 0.8rem;
+
+  cursor: pointer;
+  margin-top: 4px;
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+`;
+
+export const DialogTitle = styled.h3``;
+
+export const InputWrapper = styled(RoundBox)`
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-white);
+  padding: 16px;
+  margin: 14px 0 25px 0;
+  &:focus-within {
+    outline: var(--color-primary-dark) solid 1px;
+  }
+`;
+export const Input = styled.input`
+  width: 100%;
+  border: none;
+  background-color: inherit;
+  outline: none;
+`;
+
+export const InputError = styled.div`
+  color: var(--color-gray);
+  font-size: ${12 / 16}rem;
+  position: absolute;
+  bottom: 0;
+  right: 16px;
+  transform: translateY(105%);
+`;
+
+export const ClearButton = styled(BaseButton)`
+  padding: 0;
+`;
+export const CancelButton = styled(PrimaryButton)`
+  border: 1px solid var(--color-gray-300);
+`;
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 20px;
+  & > button {
+    flex: 1;
+  }
 `;
 
 export const Menu = styled.ul`
@@ -44,15 +110,15 @@ export const Menu = styled.ul`
   right: 0;
   padding-top: 10px;
   transform: translateY(100%);
-  box-shadow: 0px 160px 8px 8px hsla(${COLORS.gray[500]} / 0.2);
   list-style: none;
   display: ${(props) => (props.isOpen ? "flex" : "none")};
-  pointer-events: ${(props) => (props.isOpen ? "all" : "none")};
+  pointer-events: ${({ isOpen }) => (isOpen ? "auto" : "none")};
   outline: none;
   flex-direction: column;
   z-index: 10000;
   width: 95%;
   margin: 0 auto;
+  box-shadow: inset 0 8px 8% rgba(45, 46, 51, 0.2);
 `;
 
 export const Item = motion(styled.li`
@@ -93,7 +159,8 @@ export const Item = motion(styled.li`
   &.disabled {
     background-color: var(--color-white);
     color: rgba(255, 255, 255, 0.65);
-
+    pointer-events: none;
+    cursor: not-allowed;
     > * {
       opacity: 0.5;
     }
@@ -130,20 +197,11 @@ export const ToggleChainName = styled.div`
   text-align: left;
 `;
 
-export const SendBlockedWarning = styled.div`
-  z-index: 1000;
-  display: flex;
-  padding: 1rem 0;
-  > div {
-    text-align: center;
-    border-radius: 5px;
-    background-color: var(--color-error);
-    color: var(--color-gray);
-    width: 90%;
-    height: 70px;
-    margin: 0 auto;
-    padding: 1rem 0.5rem;
-    font-size: ${14 / 16}rem;
-    line-height: ${19 / 16}rem;
+export const ItemWarning = styled(Item)`
+  background-color: #6cf9d8;
+  color: #000000;
+  &:hover {
+    background-color: #6cf9d8;
+    cursor: not-allowed;
   }
 `;

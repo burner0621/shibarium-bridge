@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { SecondaryButtonWithoutShadow } from "../Buttons";
 import { ChevronDown } from "react-feather";
 import { motion } from "framer-motion";
-import { COLORS, QUERIES } from "utils";
+import { COLORS, QUERIES } from "../../utils";
 import { RoundBox as UnstyledBox, ErrorBox as UnstyledErrorBox } from "../Box";
 
 export const Wrapper = styled.div`
@@ -22,6 +22,9 @@ export const RoundBox = styled(UnstyledBox)`
   display: flex;
   &:not(:first-of-type):focus-within {
     outline: ${isSafari ? "none" : "var(--outline-color) solid 1px"};
+  }
+  @media (max-width:500px) {
+    padding:10px 8px;
   }
 `;
 
@@ -51,6 +54,11 @@ export const Logo = styled.img`
   height: 30px;
   object-fit: cover;
   margin-right: 10px;
+  @media (max-width:400px) {
+    widh:24px;
+    height:24px;
+    margin-right:4px;
+  }
 `;
 
 export const Menu = styled.ul`
@@ -108,12 +116,14 @@ export const MaxButton = styled(SecondaryButtonWithoutShadow)`
   padding: 5px 10px;
   border-radius: 5px;
   font-size: ${14 / 16}rem;
+  background-color: gray;
   transition: background-color 100ms linear;
   &::after {
     box-shadow: none;
   }
-  &:hover {
-    background-color: var(--color-gray-300);
+  @media (max-width: 500px) {
+    padding:3px 6px;
+    font-size: 11px;
   }
 `;
 
@@ -130,6 +140,9 @@ export const Input = styled.input`
 
   &::placeholder {
     color: var(--color-gray-300);
+  }
+  @media (max-width: 500px) {
+    font-size: 11px;
   }
 `;
 

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { BaseButton } from "components/Buttons";
-import { COLORS, QUERIES } from "utils";
+import { BaseButton } from "../Buttons";
+import { COLORS, QUERIES } from "../../utils";
 import { AccentSection as UnstyledAccentSection } from "../Section";
 
 export const AccentSection = styled(UnstyledAccentSection)`

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import AccentSectionBorder from "assets/border.svg";
-import { QUERIES } from "utils";
+import { QUERIES } from "../../utils";
 
 export const Section = styled.section`
   color: var(--color-white);
